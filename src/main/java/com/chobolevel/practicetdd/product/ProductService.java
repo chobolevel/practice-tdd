@@ -3,6 +3,8 @@ package com.chobolevel.practicetdd.product;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,11 +33,13 @@ class ProductService {
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
-    public ProductResponse getProduct(final String id) {
-        Product product = productPort.getProduct(id);
-        return new ProductResponse(product.getId(),
+    @GetMapping("/{productId}")
+    public ResponseEntity<?> getProduct(@PathVariable final String productId) {
+        final Product product = productPort.getProduct(productId);
+        final ProductResponse result = new ProductResponse(product.getId(),
                 product.getName(),
                 product.getPrice(),
                 product.getDiscountPolicy());
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 }

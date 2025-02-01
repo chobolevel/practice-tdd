@@ -19,4 +19,16 @@ class ProductApiTest extends ApiTest {
         assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
     }
 
+    @Test
+    void 상품조회() {
+        final var createRequest = ProductSteps.상품등록요청_생성();
+        final var createResponse = ProductSteps.상품등록요청(createRequest);
+        final var productId = createResponse.body().asString();
+
+        final var response = ProductSteps.상품조회요청(productId);
+
+        assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
+        assertThat(productId).isEqualTo(response.jsonPath().getString("id"));
+    }
+
 }
