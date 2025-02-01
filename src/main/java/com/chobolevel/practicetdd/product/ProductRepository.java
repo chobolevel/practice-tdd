@@ -1,17 +1,7 @@
 package com.chobolevel.practicetdd.product;
 
-import org.springframework.stereotype.Component;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+interface ProductRepository extends JpaRepository<Product, String> {
 
-@Component
-class ProductRepository {
-    private final Map<String, Product> persistence = new HashMap<>();
-
-    public void save(Product product) {
-        product.assignId(UUID.randomUUID().toString());
-        persistence.put(product.getId(), product);
-    }
 }

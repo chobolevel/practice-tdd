@@ -14,6 +14,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 class ProductApiTest extends ApiTest {
 
+    @Test
+    void 상품등록() {
+        final var request = 상품등록요청_생성();
+
+        final var response = 상품등록요청(request);
+
+        assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
+    }
+
     private static ExtractableResponse<Response> 상품등록요청(CreateProductRequest request) {
         return RestAssured.given().log().all()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -31,13 +40,5 @@ class ProductApiTest extends ApiTest {
         return new CreateProductRequest(name, price, discountPolicy);
     }
 
-    @Test
-    void 상품등록() {
-        final var request = 상품등록요청_생성();
-
-        final var response = 상품등록요청(request);
-
-        assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
-    }
 
 }
