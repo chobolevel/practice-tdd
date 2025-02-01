@@ -27,7 +27,15 @@ class ProductService {
                 request.name(),
                 request.price(),
                 request.discountPolicy());
-        productPort.save(product);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        var result = productPort.save(product);
+        return ResponseEntity.status(HttpStatus.CREATED).body(result);
+    }
+
+    public ProductResponse getProduct(final String id) {
+        Product product = productPort.getProduct(id);
+        return new ProductResponse(product.getId(),
+                product.getName(),
+                product.getPrice(),
+                product.getDiscountPolicy());
     }
 }

@@ -1,5 +1,7 @@
 package com.chobolevel.practicetdd.product;
 
 interface ProductPort {
-    void save(Product product);
+    String save(Product product);
+
+    Product getProduct(String id);
 }
