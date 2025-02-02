@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,7 +26,7 @@ class ProductService {
     @PostMapping
     @Transactional
     public ResponseEntity<?> create(@RequestBody final CreateProductRequest request) {
-        Product product = new Product(UUID.randomUUID().toString(),
+        final Product product = new Product(UUID.randomUUID().toString(),
                 request.name(),
                 request.price(),
                 request.discountPolicy());
@@ -41,5 +42,12 @@ class ProductService {
                 product.getPrice(),
                 product.getDiscountPolicy());
         return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    @PutMapping("/{productId}")
+    public ResponseEntity<?> update(@PathVariable final String productId, @RequestBody final UpdateProductRequest request) {
+        final Product product = productPort.getProduct(productId);
+        product.update(request.name(), request.price(), request.discountPolicy());
+        return ResponseEntity.ok().body(product.getId());
     }
 }

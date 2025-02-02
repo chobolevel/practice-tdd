@@ -32,4 +32,11 @@ public class ProductSteps {
                 .extract();
     }
 
+    public static UpdateProductRequest 상품수정요청_생성() {
+        final String name = "수정된 상품명";
+        final int price = 2000;
+        final DiscountPolicy discountPolicy = DiscountPolicy.NONE;
+        return new UpdateProductRequest(name, price, discountPolicy);
+    }
+
 }
