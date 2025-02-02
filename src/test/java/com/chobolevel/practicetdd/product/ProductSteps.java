@@ -39,4 +39,14 @@ public class ProductSteps {
         return new UpdateProductRequest(name, price, discountPolicy);
     }
 
+    public static ExtractableResponse<Response> 상품수정요청(String productId, UpdateProductRequest request) {
+        return RestAssured.given().log().all()
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .body(request)
+                .when()
+                .put("/products/{productId}", productId)
+                .then().log().all()
+                .extract();
+    }
+
 }

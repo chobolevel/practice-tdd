@@ -1,6 +1,8 @@
 package com.chobolevel.practicetdd.product;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
@@ -18,6 +20,7 @@ class Product {
     private String id;
     private String name;
     private int price;
+    @Enumerated(EnumType.STRING)
     private DiscountPolicy discountPolicy;
 
     public Product(String id, String name, int price, DiscountPolicy discountPolicy) {

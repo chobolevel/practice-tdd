@@ -45,6 +45,7 @@ class ProductService {
     }
 
     @PutMapping("/{productId}")
+    @Transactional
     public ResponseEntity<?> update(@PathVariable final String productId, @RequestBody final UpdateProductRequest request) {
         final Product product = productPort.getProduct(productId);
         product.update(request.name(), request.price(), request.discountPolicy());
