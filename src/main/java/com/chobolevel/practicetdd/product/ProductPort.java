@@ -8,4 +8,8 @@ interface ProductPort {
     Product getProduct(String id);
 
     List<Product> getProducts();
+
+    String update(String productId, UpdateProductRequest request);
+
+    boolean delete(String productId);
 }

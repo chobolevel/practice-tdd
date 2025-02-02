@@ -3,6 +3,7 @@ package com.chobolevel.practicetdd.product;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -54,8 +55,13 @@ class ProductService {
     @PutMapping("/{productId}")
     @Transactional
     public ResponseEntity<?> update(@PathVariable final String productId, @RequestBody final UpdateProductRequest request) {
-        final Product product = productPort.getProduct(productId);
-        product.update(request.name(), request.price(), request.discountPolicy());
-        return ResponseEntity.ok().body(product.getId());
+        final var result = productPort.update(productId, request);
+        return ResponseEntity.ok().body(result);
+    }
+
+    @DeleteMapping("/{productId}")
+    public ResponseEntity<?> delete(@PathVariable final String productId) {
+        final var result = productPort.delete(productId);
+        return ResponseEntity.ok().body(result);
     }
 }

@@ -69,4 +69,20 @@ class ProductApiTest extends ApiTest {
         assertThat(updateJsonProduct.getString("discountPolicy")).isEqualTo(updateRequest.discountPolicy().name());
     }
 
+    @Test
+    void 상품삭제() {
+        // given
+        final var createRequest = ProductSteps.상품등록요청_생성();
+        final var createResponse = ProductSteps.상품등록요청(createRequest);
+        final var productId = createResponse.body().asString();
+
+        // when
+        final var deleteResponse = ProductSteps.상품삭제요청(productId);
+        final var getDeletedProductResponse = ProductSteps.상품조회요청(productId);
+
+        // then
+        assertThat(deleteResponse.statusCode()).isEqualTo(HttpStatus.OK.value());
+        assertThat(getDeletedProductResponse.statusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
+    }
+
 }

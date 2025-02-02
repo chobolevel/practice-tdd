@@ -57,4 +57,12 @@ public class ProductSteps {
                 .extract();
     }
 
+    public static ExtractableResponse<Response> 상품삭제요청(String productId) {
+        return RestAssured.given().log().all()
+                .when()
+                .delete("/products/{productId}", productId)
+                .then().log().all()
+                .extract();
+    }
+
 }
