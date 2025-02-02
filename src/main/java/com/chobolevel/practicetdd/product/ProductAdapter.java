@@ -2,6 +2,8 @@ package com.chobolevel.practicetdd.product;
 
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 class ProductAdapter implements ProductPort {
     private final ProductRepository productRepository;
@@ -18,5 +20,10 @@ class ProductAdapter implements ProductPort {
     @Override
     public Product getProduct(String id) {
         return productRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("상품이 존재하지 않습니다."));
+    }
+
+    @Override
+    public List<Product> getProducts() {
+        return productRepository.findAll();
     }
 }

@@ -34,6 +34,13 @@ class ProductService {
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
+    @GetMapping
+    public ResponseEntity<?> getProducts() {
+        final var result = productPort.getProducts();
+
+        return ResponseEntity.ok().body(result);
+    }
+
     @GetMapping("/{productId}")
     public ResponseEntity<?> getProduct(@PathVariable final String productId) {
         final Product product = productPort.getProduct(productId);

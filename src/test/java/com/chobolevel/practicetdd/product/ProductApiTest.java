@@ -21,6 +21,17 @@ class ProductApiTest extends ApiTest {
     }
 
     @Test
+    void 상품목록조회() {
+        // given
+
+        // when
+        final var response = ProductSteps.상품목록조회요청();
+
+        // then
+        assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
+    }
+
+    @Test
     void 상품조회() {
         //given
         final var createRequest = ProductSteps.상품등록요청_생성();
